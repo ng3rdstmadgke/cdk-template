@@ -15,6 +15,32 @@
     ]
   },
   "context": {
+    "default": {
+      "aws_account_id": "669567641293",
+      "aws_region": "ap-northeast-1",
+      "app_name": "mido",
+      "vpc_id": "vpc-0aa084a693ff324f4",
+      "subnet_ids": [
+      ],
+      "http_proxy": "",
+      "https_proxy": "",
+      "no_proxy": [],
+      "termination_protection": false,
+      "tags": {
+        "Billing Destination": "SAMPLE",
+        "SYS_STACK_APP": "SAMPLE"
+      },
+      "sns_email_address": "sample@example.com"
+    },
+    "overwrite": {
+      "dev": {
+        "sns_email_address": "mido@example.com"
+      },
+      "stg": {
+      },
+      "prd": {
+      }
+    },
     "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
     "@aws-cdk/core:enableStackNameDuplicates": true,
     "aws-cdk:enableDiffNoFail": true,
