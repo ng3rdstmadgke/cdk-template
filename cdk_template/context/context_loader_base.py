@@ -1,3 +1,5 @@
+import re
+
 import copy
 from typing import Dict, List
 from dataclasses import dataclass
@@ -25,7 +27,7 @@ class ContextBase(metaclass=ABCMeta):
         return "".join(
             map(
                 lambda e: e.capitalize(),
-                resource_name.split("-")
+                re.split("[-_]", resource_name)
             )
         )
 

@@ -2,10 +2,10 @@
 
 from aws_cdk import core
 
-from cdk_template.cdk_template_stack import CdkTemplateStack
-
 from cdk_template.context.sample_stage_context import SampleStageContextLoader
 from cdk_template.stack.sample_stage_stack import SampleStageStack
+from cdk_template.context.sample_line_context import SampleLineContextLoader
+from cdk_template.stack.sample_line_stack import LineStackBase, SampleLineStack
 
 KEY_CONTEXT_DEFAULT = "default"
 KEY_CONTEXT_OVERWRITE = "overwrite"
@@ -26,9 +26,15 @@ if stage:
     SampleStageStack(app, sample_stage_context)
 
 
-    line = app.node.try_get_context(ARG_KEY_CONTEXT_STAGE)
+    line = app.node.try_get_context(ARG_KEY_CONTEXT_LINE)
     if line:
-        pass
+        sample_line_context = SampleLineContextLoader(
+            default_context=default_context,
+            overwrite_context=overwrite_context,
+            stage=stage,
+            line=line
+        ).load()
+        SampleLineStack(app, sample_line_context)
 
 #CdkTemplateStack(app, "cdk-template")
 
