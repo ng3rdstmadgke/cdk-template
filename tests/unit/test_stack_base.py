@@ -73,7 +73,7 @@ def test_stack_base_get_subnet():
         no_proxy=[],
         termination_protection=False,
         tags={},
-        stage="dev"
+        stage="test"
     )
 
     stack = TestStack(app, context)
@@ -93,7 +93,7 @@ def test_stack_base_get_role():
         no_proxy=[],
         termination_protection=False,
         tags={},
-        stage="dev"
+        stage="test"
     )
 
     stack = TestStack(app, context)
