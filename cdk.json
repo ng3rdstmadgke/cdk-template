@@ -30,7 +30,16 @@
         "Billing Destination": "SAMPLE",
         "SYS_STACK_APP": "SAMPLE"
       },
-      "sns_email_address": "sample@example.com"
+      "sns_email_address": "sample@example.com",
+      "ecr_repositories": [
+        "hello",
+        "world"
+      ],
+      "ecr_allow_vpce_api": "vpce-0b3a1a8f6c50dbea3",
+      "ecr_allow_vpce_dkr": "vpce-0f91655acd1c86253",
+      "ecr_allow_ip_list": [
+        "0.0.0.0/0"
+      ]
     },
     "overwrite": {
       "dev": {
