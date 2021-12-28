@@ -17,3 +17,7 @@ help:
 .PHONY: prepare
 prepare: ## : CDKコンテナのビルド
 	docker build --rm -f docker/Dockerfile -t $(CDK_IMAGE_NAME) .
+
+.PHONY: generate-classdiagram
+generate-classdiagram: ## : クラス図の出力 (https://qiita.com/kenichi-hamaguchi/items/c0b947ed15725bfdfb5a)
+	pyreverse -o png -d ./doc/image --colorized --max-color-depth=3 -p cocoa-cdk .
