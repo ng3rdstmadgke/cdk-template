@@ -39,12 +39,15 @@ class EcrStack(StageStackBase):
                     "Action": ["ecr:*"],
                     "Condition": {
                         "StringNotEquals": {
-                            "aws:CalledVia": [
+                            # cloudformationからのアクセスを許可
+                            "aws:CalledVia": [ 
                                 "cloudformation.amazonaws.com",
                             ],
+                            # ECRのVPCエンドポイントからのアクセスを許可
                             "aws:sourceVpce": self.context.allow_vpce_list,
                         },
                         "NotIpAddress": {
+                            # 指定のネットワークからのアクセスを許可
                             "aws:SourceIp": self.context.allow_ip_list,
                         },
                     },

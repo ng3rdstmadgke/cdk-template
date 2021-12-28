@@ -5,7 +5,7 @@ from aws_cdk import (
     )
 
 from cdk_template.context.context_loader_base import (
-    StageContextLoader,
+    StageContextLoaderBase,
     StageContextBase,
     LineContextLoaderBase,
     LineContextBase,
@@ -26,7 +26,7 @@ class TestLineContext(LineContextBase):
     STACK_NAME = "testLine"
     test_line: str
 
-class TestStageContextLoader(StageContextLoader):
+class TestStageContextLoader(StageContextLoaderBase):
     KEY_CONTEXT_TEST_STAGE = "test_stage"
 
     def load(self) -> TestStageContext:

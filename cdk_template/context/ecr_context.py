@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import List
 from cdk_template.context.context_loader_base import (
     StageContextBase,
-    StageContextLoader
+    StageContextLoaderBase
 )
 
 @dataclass(frozen=True)
@@ -11,7 +11,7 @@ class EcrContext(StageContextBase):
     allow_vpce_list: List[str]
     allow_ip_list: List[str]
 
-class EcrContextLoader(StageContextLoader):
+class EcrContextLoader(StageContextLoaderBase):
     KEY_CONTEXT_ECR_REPOSITORIES = "ecr_repositories"
     KEY_CONTEXT_ECR_ALLOW_VPCE_API = "ecr_allow_vpce_api"
     KEY_CONTEXT_ECR_ALLOW_VPCE_DKR = "ecr_allow_vpce_dkr"

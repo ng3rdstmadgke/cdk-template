@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from cdk_template.context.context_loader_base import (
     StageContextBase,
-    StageContextLoader
+    StageContextLoaderBase
 )
 
 @dataclass(frozen=True)
@@ -10,7 +10,7 @@ class SampleStageContext(StageContextBase):
 
 
 
-class SampleStageContextLoader(StageContextLoader):
+class SampleStageContextLoader(StageContextLoaderBase):
     KEY_CONTEXT_SAMPLE_STAGE_PARAM = "sample_stage_param"
 
 

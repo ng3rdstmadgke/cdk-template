@@ -8,8 +8,9 @@ from aws_cdk import (
 from cdk_template.context.context_loader_base import ContextBase, LineContextBase, StageContextBase
 
 class StackBase(core.Stack):
-    """スタックを実装するためのベースクラス
-    https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.core/Stack.html
+    """レイヤ共通で利用するメソッドやメンバが定義されたStackのベースクラス
+
+    core.Stack: https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.core/Stack.html
     """
 
     STACK_NAME: str
@@ -38,9 +39,11 @@ class StackBase(core.Stack):
         raise NotImplementedError
 
     def _get_resource_name(self, name: str) -> str:
+        """CFnのスタック名やリソース名を生成するメソッド。ケバブケース"""
         return self.context.get_resource_name(name)
         
     def _get_resource_id(self, name: str) -> str:
+        """CFnのリソースidを生成するメソッド。パスカルケース"""
         return self.context.get_resource_id(name)
 
     def _add_default_tag(self):
@@ -48,6 +51,7 @@ class StackBase(core.Stack):
             core.Tags.of(self).add(k, v)
 
     def _get_vpc(self) -> ec2.IVpc:
+        """cdk.jsonのvpc_idに指定されているVPCの参照を取得"""
         if self.vpc_ref is None:
             self.vpc_ref = ec2.Vpc.from_lookup(
                 self, self._get_resource_id("defaultVpcRef"),
@@ -56,6 +60,7 @@ class StackBase(core.Stack):
         return self.vpc_ref
 
     def _get_subnet(self, subnet_id: str) -> ec2.ISubnet:
+        """指定されたsubnet_idからsubnetの参照を取得"""
         if subnet_id not in self.subnet_refs:
             self.subnet_refs[subnet_id] = ec2.Subnet.from_subnet_id(
                 self, self._get_resource_id(f"{subnet_id}Ref"),
@@ -64,6 +69,7 @@ class StackBase(core.Stack):
         return self.subnet_refs[subnet_id]
 
     def _get_role(self, role_name: str) -> iam.IRole:
+        """指定されたIAM Role名からRoleの参照を取得"""
         if role_name not in self.role_refs:
             self.role_refs[role_name] = iam.Role.from_role_arn(
                 self, self._get_resource_id(f"{role_name}Ref"),
@@ -72,7 +78,9 @@ class StackBase(core.Stack):
         return self.role_refs[role_name]
 
 class StageStackBase(StackBase):
+    """stageレイヤのStackが継承するべきクラス"""
     context: StageContextBase
 
 class LineStackBase(StackBase):
+    """lineレイヤのStackが継承するべきクラス"""
     context: LineContextBase

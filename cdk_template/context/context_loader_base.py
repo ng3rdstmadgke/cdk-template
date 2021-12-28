@@ -7,6 +7,7 @@ from abc import ABCMeta, abstractmethod
 
 @dataclass(frozen=True)
 class ContextBase(metaclass=ABCMeta):
+    """レイヤ共通で利用するメソッドやメンバが定義されたContextのベースクラス"""
     aws_account_id: str
     aws_region: str
     app_name: str
@@ -20,9 +21,11 @@ class ContextBase(metaclass=ABCMeta):
 
     @abstractmethod
     def get_resource_name(self, name: str) -> str:
+        """CFnのスタック名やリソース名を生成するメソッド。ケバブケース"""
         raise NotImplementedError
         
     def get_resource_id(self, name: str) -> str:
+        """CFnのリソースidを生成するメソッド。パスカルケース"""
         resource_name = self.get_resource_name(name)
         return "".join(
             map(
@@ -34,6 +37,7 @@ class ContextBase(metaclass=ABCMeta):
 
 @dataclass(frozen=True)
 class StageContextBase(ContextBase, metaclass=ABCMeta):
+    """stageレイヤのContextが継承するべきクラス"""
     stage: str
 
     def get_resource_name(self, name: str) -> str:
@@ -41,6 +45,7 @@ class StageContextBase(ContextBase, metaclass=ABCMeta):
 
 @dataclass(frozen=True)
 class LineContextBase(ContextBase, metaclass=ABCMeta):
+    """lineレイヤのContextが継承するべきクラス"""
     stage: str
     line: str
 
@@ -49,6 +54,7 @@ class LineContextBase(ContextBase, metaclass=ABCMeta):
 
 
 class ContextLoaderBase(metaclass=ABCMeta):
+    """レイヤ共通で利用するメソッドやメンバが定義されたContextLoaderのベースクラス"""
     KEY_CONTEXT_AWS_ACCOUNT_ID = "aws_account_id"
     KEY_CONTEXT_AWS_REGION = "aws_region"
     KEY_CONTEXT_APP_NAME = "app_name"
@@ -87,7 +93,8 @@ class ContextLoaderBase(metaclass=ABCMeta):
                 else:
                     context[k] = v
 
-class StageContextLoader(ContextLoaderBase, metaclass=ABCMeta):
+class StageContextLoaderBase(ContextLoaderBase, metaclass=ABCMeta):
+    """stageレイヤのContextLoaderが継承するべきクラス"""
     def __init__(self, default_context: dict, overwrite_context: dict, stage: str):
         self.stage = stage
         self.context_src = self._overwrite_context(
@@ -100,6 +107,7 @@ class StageContextLoader(ContextLoaderBase, metaclass=ABCMeta):
         raise NotImplementedError
 
 class LineContextLoaderBase(ContextLoaderBase, metaclass=ABCMeta):
+    """lineレイヤのContextLoaderが継承するべきクラス"""
     def __init__(self, default_context: dict, overwrite_context: dict, stage: str, line: str):
         self.stage = stage
         self.line = line
