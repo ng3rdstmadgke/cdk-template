@@ -16,5 +16,5 @@ class SampleLineStack(LineStackBase):
         )
 
         topic.add_subscription(subs.EmailSubscription(
-            self.context.email_address
+            self.context.sample_line_param
         ))

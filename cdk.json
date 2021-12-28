@@ -16,9 +16,9 @@
   },
   "context": {
     "default": {
-      "aws_account_id": "669567641293",
+      "aws_account_id": "674582907715",
       "aws_region": "ap-northeast-1",
-      "app_name": "mido",
+      "app_name": "cdktpl",
       "vpc_id": "vpc-0aa084a693ff324f4",
       "subnet_ids": [
       ],
@@ -30,7 +30,8 @@
         "Billing Destination": "SAMPLE",
         "SYS_STACK_APP": "SAMPLE"
       },
-      "sns_email_address": "sample@example.com",
+      "sample_stage_param": "sample_stage@example.com",
+      "sample_line_param": "sample_line@example.com",
       "ecr_repositories": [
         "hello",
         "world"
@@ -43,7 +44,10 @@
     },
     "overwrite": {
       "dev": {
-        "sns_email_address": "mido@example.com"
+        "sample_stage_param": "mido@example.com",
+        "line1": {
+          "sample_line_param": "kta@example.com"
+        }
       },
       "stg": {
       },

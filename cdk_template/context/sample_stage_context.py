@@ -6,12 +6,12 @@ from cdk_template.context.context_loader_base import (
 
 @dataclass(frozen=True)
 class SampleStageContext(StageContextBase):
-    email_address: str
+    sample_stage_param: str
 
 
 
 class SampleStageContextLoader(StageContextLoader):
-    KEY_CONTEXT_SNS_EMAIL_ADDRESS = "sns_email_address"
+    KEY_CONTEXT_SAMPLE_STAGE_PARAM = "sample_stage_param"
 
 
     def load(self) -> SampleStageContext:
@@ -30,5 +30,5 @@ class SampleStageContextLoader(StageContextLoader):
             # StageContextBase の引数
             stage=self.stage,
             # SampleStageContextLoader の引数
-            email_address=self.context_src[self.KEY_CONTEXT_SNS_EMAIL_ADDRESS]
+            sample_stage_param=self.context_src[self.KEY_CONTEXT_SAMPLE_STAGE_PARAM]
         )

@@ -18,5 +18,5 @@ class SampleStageStack(StageStackBase):
         )
 
         topic.add_subscription(subs.EmailSubscription(
-            self.context.email_address
+            self.context.sample_stage_param
         ))

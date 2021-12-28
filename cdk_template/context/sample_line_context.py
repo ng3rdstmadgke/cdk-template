@@ -6,12 +6,12 @@ from cdk_template.context.context_loader_base import (
 
 @dataclass(frozen=True)
 class SampleLineContext(LineContextBase):
-    email_address: str
+    sample_line_param: str
 
 
 
 class SampleLineContextLoader(LineContextLoaderBase):
-    KEY_CONTEXT_SNS_EMAIL_ADDRESS = "sns_email_address"
+    KEY_CONTEXT_SAMPLE_LINE_PARAM = "sample_line_param"
 
 
     def load(self) -> SampleLineContext:
@@ -31,5 +31,5 @@ class SampleLineContextLoader(LineContextLoaderBase):
             stage=self.stage,
             line=self.line,
             # SampleStageContextLoader の引数
-            email_address=self.context_src[self.KEY_CONTEXT_SNS_EMAIL_ADDRESS]
+            sample_line_param=self.context_src[self.KEY_CONTEXT_SAMPLE_LINE_PARAM]
         )
