@@ -74,7 +74,7 @@ touch cdk_template/stack/{stack_name}_stack.py
 ### `Context` クラス
 
 `Context` オブジェクトは `StageContextBase` もしくは `LineContextBase` を継承したイミュータブルなオブジェクトとして定義します。  
-`Context` オブジェクトは `Stack` から `cdk.json` への依存を明確化する役割を持つため、 利用する値のみをメンバとして持つ用実装します。
+`Context` オブジェクトは `Stack` から `cdk.json` への依存を明確化する役割を持つため、 利用する値のみをメンバとして持ちます。
 
 ```cdk_template/context/sample_stage_context.py
 from dataclasses import dataclass
@@ -138,7 +138,7 @@ class SampleStageContextLoader(StageContextLoaderBase):
 - `def _resources(self):` (必須)  
 awsリソースを定義するメソッドです。
 - `STACK_NAME` (必須)  
-スタック名を定義する静的メソッドです。
+スタック名を定義する静的メンバです。
 
 
 ```cdk_template/stack/sample_stage_stack.py
