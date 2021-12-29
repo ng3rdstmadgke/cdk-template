@@ -25,10 +25,10 @@ class TestStack(StageStackBase):
 def test_stack_base():
     app = core.App()
     context = TestContext(
-        aws_account_id="669567641293",
+        aws_account_id="xxxxxxxxxxxx",
         aws_region="ap-northeast-1",
         app_name="mido",
-        vpc_id="vpc-0aa084a693ff324f4",
+        vpc_id="vpc-xxxxxxxxxxxxxxxxx",
         subnet_ids=[],
         http_proxy="",
         https_proxy="",
@@ -43,10 +43,10 @@ def test_stack_base():
 def test_stack_base_get_vpc():
     app = core.App()
     context = TestContext(
-        aws_account_id="669567641293",
+        aws_account_id="xxxxxxxxxxxx",
         aws_region="ap-northeast-1",
         app_name="mido",
-        vpc_id="vpc-0aa084a693ff324f4",
+        vpc_id="vpc-xxxxxxxxxxxxxxxxx",
         subnet_ids=[],
         http_proxy="",
         https_proxy="",
@@ -63,10 +63,10 @@ def test_stack_base_get_vpc():
 def test_stack_base_get_subnet():
     app = core.App()
     context = TestContext(
-        aws_account_id="669567641293",
+        aws_account_id="xxxxxxxxxxxx",
         aws_region="ap-northeast-1",
         app_name="mido",
-        vpc_id="vpc-0aa084a693ff324f4",
+        vpc_id="vpc-xxxxxxxxxxxxxxxxx",
         subnet_ids=[],
         http_proxy="",
         https_proxy="",
@@ -83,10 +83,10 @@ def test_stack_base_get_subnet():
 def test_stack_base_get_role():
     app = core.App()
     context = TestContext(
-        aws_account_id="669567641293",
+        aws_account_id="xxxxxxxxxxxx",
         aws_region="ap-northeast-1",
         app_name="mido",
-        vpc_id="vpc-0aa084a693ff324f4",
+        vpc_id="vpc-xxxxxxxxxxxxxxxxx",
         subnet_ids=[],
         http_proxy="",
         https_proxy="",

@@ -16,10 +16,10 @@
   },
   "context": {
     "default": {
-      "aws_account_id": "674582907715",
+      "aws_account_id": "xxxxxxxxxxxx",
       "aws_region": "ap-northeast-1",
       "app_name": "cdktpl",
-      "vpc_id": "vpc-0aa084a693ff324f4",
+      "vpc_id": "vpc-xxxxxxxxxxxxxxxxx",
       "subnet_ids": [
       ],
       "http_proxy": "",
@@ -36,8 +36,8 @@
         "hello",
         "world"
       ],
-      "ecr_allow_vpce_api": "vpce-0b3a1a8f6c50dbea3",
-      "ecr_allow_vpce_dkr": "vpce-0f91655acd1c86253",
+      "ecr_allow_vpce_api": "vpce-xxxxxxxxxxxxxxxxx",
+      "ecr_allow_vpce_dkr": "vpce-xxxxxxxxxxxxxxxxx",
       "ecr_allow_ip_list": [
         "0.0.0.0/0"
       ]
