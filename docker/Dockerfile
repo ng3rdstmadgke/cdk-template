@@ -14,9 +14,9 @@ RUN mkdir -p /opt/work/cdk_template
 WORKDIR /opt/work
 
 COPY ./setup.py .
-COPY ./.cdk_version .
+COPY ./cdk_version .
 COPY ./requirements.txt .
-RUN npm install -g aws-cdk@`cat CDK_VERSION`
+RUN npm install -g aws-cdk@`cat cdk_version`
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 

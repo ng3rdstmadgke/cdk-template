@@ -1,7 +1,7 @@
 import setuptools
 
 CDK_VERSION = ""
-with open(".cdk_version") as f:
+with open("cdk_version") as f:
     CDK_VERSION = str(f.read())
 
 setuptools.setup(
@@ -21,6 +21,7 @@ setuptools.setup(
         f"aws-cdk.aws_s3=={CDK_VERSION}",
         f"aws-cdk.assertions=={CDK_VERSION}",
         "boto3==1.20.5",
+        f"pydantic==1.8.2",
     ],
     python_requires=">=3.6",
     classifiers=[

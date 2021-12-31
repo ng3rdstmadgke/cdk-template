@@ -44,18 +44,18 @@ class EcrStack(StageStackBase):
                                 "cloudformation.amazonaws.com",
                             ],
                             # ECRのVPCエンドポイントからのアクセスを許可
-                            "aws:sourceVpce": self.context.allow_vpce_list,
+                            "aws:sourceVpce": self.context.get_allow_vpce_list()
                         },
                         "NotIpAddress": {
                             # 指定のネットワークからのアクセスを許可
-                            "aws:SourceIp": self.context.allow_ip_list,
+                            "aws:SourceIp": self.context.ecr_allow_ip_list,
                         },
                     },
                 }
             ],
         }
 
-        ecr_repo = ecr.CfnRepository(
+        ecr.CfnRepository(
             self, self._get_resource_id(f"ecr_{repository_name}"),
             repository_name=self._get_full_repository_name(repository_name),
             image_scanning_configuration=ecr.CfnRepository.ImageScanningConfigurationProperty(
