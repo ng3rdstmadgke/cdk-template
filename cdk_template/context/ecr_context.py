@@ -10,8 +10,8 @@ class EcrContext(StageContextBase):
 
     def get_allow_vpce_list(self) -> List[str]:
         allow_vpce_list = []
-        if not self.ecr_allow_vpce_api:
+        if self.ecr_allow_vpce_api:
             allow_vpce_list.append(self.ecr_allow_vpce_api)
-        if not self.ecr_allow_vpce_dkr:
+        if self.ecr_allow_vpce_dkr:
             allow_vpce_list.append(self.ecr_allow_vpce_dkr)
         return allow_vpce_list
