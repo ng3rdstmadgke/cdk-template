@@ -13,8 +13,8 @@ class ContextBase(BaseModel):
     app_name: str
     vpc_id: str
     subnet_ids: List[str]
-    http_proxy: Optional[str]
-    https_proxy: Optional[str]
+    http_proxy: str
+    https_proxy: str
     no_proxy: List[str]
     termination_protection: bool
     tags: Dict[str, str]

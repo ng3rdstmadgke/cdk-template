@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 from aws_cdk import (
         core,
         assertions
@@ -105,7 +106,7 @@ def test_create_stage_context():
         "SYS_STACK_APP": "SAMPLE"
       },
       "sns_email_address": "sample@example.com",
-      "test_stage": "test"
+      "test_stage": "test",
     }
 
     stage = "dev"
@@ -131,28 +132,28 @@ def test_create_stage_context():
 
 def test_create_stage_overwrite_context():
     default_context = {
-      "aws_account_id": "xxxxxxxxxxxxxx",
-      "aws_region": "ap-northeast-1",
-      "app_name": "mido",
-      "vpc_id": "vpc-xxxxxxxxxxxxxxxxx",
-      "subnet_ids": [ ],
-      "http_proxy": "http://xxxxx.com:7080",
-      "https_proxy": "http://xxxxx.com:7080",
-      "no_proxy": [],
-      "termination_protection": False,
-      "tags": {
-        "Billing Destination": "SAMPLE",
-        "SYS_STACK_APP": "SAMPLE"
-      },
-      "sns_email_address": "sample@example.com",
-      "test_stage": "test"
+        "aws_account_id": "xxxxxxxxxxxxxx",
+        "aws_region": "ap-northeast-1",
+        "app_name": "mido",
+        "vpc_id": "vpc-xxxxxxxxxxxxxxxxx",
+        "subnet_ids": [ ],
+        "http_proxy": "http://xxxxx.com:7080",
+        "https_proxy": "http://xxxxx.com:7080",
+        "no_proxy": [],
+        "termination_protection": False,
+        "tags": {
+          "Billing Destination": "SAMPLE",
+          "SYS_STACK_APP": "SAMPLE"
+        },
+        "sns_email_address": "sample@example.com",
+        "test_stage": "test",
     }
 
     overwrite_context = {
         "dev": {
-            "http_proxy": None,
-            "https_proxy": None,
-            "test_stage": "sample"
+            "http_proxy": "",
+            "https_proxy": "",
+            "test_stage": "sample",
         }
     }
 
@@ -194,7 +195,7 @@ def test_create_line_context():
         "SYS_STACK_APP": "SAMPLE"
       },
       "sns_email_address": "sample@example.com",
-      "test_line": "test"
+      "test_line": "test",
     }
 
     stage = "dev"

@@ -22,8 +22,8 @@
       "vpc_id": "vpc-xxxxxxxxxxxxxxxxx",
       "subnet_ids": [
       ],
-      "http_proxy": "",
-      "https_proxy": "",
+      "http_proxy": "http://xxx.com:7080",
+      "https_proxy": "http://xxx.com:7080",
       "no_proxy": [],
       "termination_protection": false,
       "tags": {
@@ -44,6 +44,8 @@
     },
     "overwrite": {
       "dev": {
+        "http_proxy": "",
+        "https_proxy": "",
         "sample_stage_param": "mido@example.com",
         "line1": {
           "sample_line_param": "kta@example.com"
