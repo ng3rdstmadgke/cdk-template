@@ -6,8 +6,6 @@ from aws_cdk import (
 
 from cdk_template.context.context_loader_base import (
     StageContextBase,
-    LineContextLoaderBase,
-    LineContextBase,
 )
 
 from cdk_template.stack.stack_base import (

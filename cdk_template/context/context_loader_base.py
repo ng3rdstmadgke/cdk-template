@@ -1,7 +1,7 @@
 import re
 
 import copy
-from typing import Any, Dict, List, Type
+from typing import Any, Dict, List, Type, Optional
 from dataclasses import dataclass
 from abc import ABCMeta, abstractmethod
 from pydantic import BaseModel
@@ -13,8 +13,8 @@ class ContextBase(BaseModel):
     app_name: str
     vpc_id: str
     subnet_ids: List[str]
-    http_proxy: str
-    https_proxy: str
+    http_proxy: Optional[str]
+    https_proxy: Optional[str]
     no_proxy: List[str]
     termination_protection: bool
     tags: Dict[str, str]
