@@ -58,8 +58,6 @@ cdkのdockerイメージをビルドするためのコマンドです
 
 
 
-
-
 # 新しいスタックの追加
 
 ```bash
@@ -69,60 +67,26 @@ touch cdk_template/stack/{stack_name}_stack.py
 
 ## コンテキストの実装
 
-`cdk_template/context/{stack_name}_context.py` ではスタックにcdk.jsonの情報を渡すための `Context` と `cdk.json` の内容をロードするための `ContextLoader` を実装します。
+`cdk_template/context/{stack_name}_context.py` ではスタックにcdk.jsonの情報を渡すための `Context` を実装します。
 
 ### `Context` クラス
 
-`Context` オブジェクトは `StageContextBase` もしくは `LineContextBase` を継承したイミュータブルなオブジェクトとして定義します。  
-`Context` オブジェクトは `Stack` から `cdk.json` への依存を明確化する役割を持つため、 利用する値のみをメンバとして持ちます。
+`Context` クラスは `StageContextBase` もしくは `LineContextBase` を継承したクラスとして定義します。 `cdk.json` に定義されている項目をメンバにもち、 スタックが必要とするパラメータを明確化する役割を持ちます。  
+※ `Context` オブジェクトは `ContextLoader.get_context()` にて、 `pydantic` を利用して生成されます。
 
 ```cdk_template/context/sample_stage_context.py
 from dataclasses import dataclass
-from cdk_template.context.context_loader_base import (
-    StageContextBase,
-    StageContextLoaderBase
-)
+from cdk_template.context.context_loader_base import StageContextBase
 
-
-@dataclass(frozen=True)
 class SampleStageContext(StageContextBase):
+    # cdk.jsonに定義されている項目
     sample_stage_param: str
+
+    # パラメータを加工したい場合はメソッドを実装します。
+    def param_to_list(self):
+        return self.sample_stage_param.split(" ")
 ```
 
-### `ContextLoader` クラス
-
-`ContextLoader` は `Context` を生成するためのクラスで、 `StageContextLoaderBase` もしくは `LineContextLoader` 継承して実装します。
-`ContextLoader` は `cdk.json` を指定の `stage` や `line` のパラメータで上書きし、利用する値のみを取得して `Context` オブジェクトを生成します。  
-`ContextLoader` には `cdk.json` で利用する項目名を静的メンバとして定義します。
-
-```cdk_template/context/sample_stage_context.py
-from cdk_template.context.context_loader_base import (
-    StageContextBase,
-    StageContextLoaderBase
-)
-
-class SampleStageContextLoader(StageContextLoaderBase):
-    KEY_CONTEXT_SAMPLE_STAGE_PARAM = "sample_stage_param"  # cdk.jsonで利用する項目を静的メンバとして定義
-
-    def load(self) -> SampleStageContext:
-        return SampleStageContext(
-            # ContextBase の引数
-            aws_account_id=self.context_src[self.KEY_CONTEXT_AWS_ACCOUNT_ID],
-            aws_region=self.context_src[self.KEY_CONTEXT_AWS_REGION],
-            app_name=self.context_src[self.KEY_CONTEXT_APP_NAME],
-            vpc_id=self.context_src[self.KEY_CONTEXT_VPC_ID],
-            subnet_ids=self.context_src[self.KEY_CONTEXT_SUBNET_IDS],
-            http_proxy=self.context_src[self.KEY_CONTEXT_HTTP_PROXY],
-            https_proxy=self.context_src[self.KEY_CONTEXT_HTTPS_PROXY],
-            no_proxy=self.context_src[self.KEY_CONTEXT_NO_PROXY],
-            termination_protection=self.context_src[self.KEY_CONTEXT_TERMINATION_PROTECTION],
-            tags=self.context_src[self.KEY_CONTEXT_TAGS],
-            # StageContextBase の引数
-            stage=self.stage,
-            # SampleStageContextLoader の引数
-            sample_stage_param=self.context_src[self.KEY_CONTEXT_SAMPLE_STAGE_PARAM]
-        )
-```
 
 ## スタックの実装
 
@@ -147,9 +111,7 @@ from aws_cdk import (
     aws_sns_subscriptions as subs,
 )
 from cdk_template.context.sample_stage_context import SampleStageContext
-from cdk_template.stack.stack_base import (
-    StageStackBase
-)
+from cdk_template.stack.stack_base import StageStackBase
 
 class SampleStageStack(StageStackBase):
     STACK_NAME = "sampleStage"
@@ -171,7 +133,12 @@ class SampleStageStack(StageStackBase):
 コンテキストとスタックの実装が終わったら、 `app.py` にスタックを追加します。
 
 ```app.py
-from cdk_template.context.sample_stage_context import SampleStageContextLoader
+from cdk_template.context.context_loader_base import (
+    StageContextLoader,
+    LineContextLoader,
+)
+
+from cdk_template.context.sample_stage_context import SampleStageContext
 from cdk_template.stack.sample_stage_stack import SampleStageStack
 
 app = core.App()
@@ -181,11 +148,11 @@ overwrite_context = app.node.try_get_context(KEY_CONTEXT_OVERWRITE)
 stage = app.node.try_get_context(ARG_KEY_CONTEXT_STAGE)
 if stage:
     # Contextオブジェクトを生成
-    sample_stage_context = SampleStageContextLoader(
+    sample_stage_context = StageContextLoader(
         default_context=default_context,
         overwrite_context=overwrite_context,
         stage=stage
-    ).load()
+    ).get_context(SampleStageContext)
 
     # Contextを引数にとってStackを作成
     SampleStageStack(app, sample_stage_context)

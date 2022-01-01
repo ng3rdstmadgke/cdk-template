@@ -18,8 +18,6 @@ KEY_CONTEXT_DEFAULT = "default"
 KEY_CONTEXT_OVERWRITE = "overwrite"
 ARG_KEY_CONTEXT_STAGE = "stage"
 ARG_KEY_CONTEXT_LINE = "line"
-VPC_ENDPOINT_ECR_API = "vpce-0655dc8212300bc9f"
-VPC_ENDPOINT_ECR_DKR = "vpce-087f93b6522676ab5"
 
 app = core.App()
 default_context = app.node.try_get_context(KEY_CONTEXT_DEFAULT)
