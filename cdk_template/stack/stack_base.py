@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 from aws_cdk import (
     core,
     aws_iam as iam,
@@ -67,6 +67,10 @@ class StackBase(core.Stack):
                 subnet_id=subnet_id,
             )
         return self.subnet_refs[subnet_id]
+
+    def _get_subnet_selection(self, subnet_ids: List[str]) -> ec2.SubnetSelection:
+        subnets = [self._get_subnet(subnet_id) for subnet_id in subnet_ids]
+        return ec2.SubnetSelection(subnets=subnets)
 
     def _get_role(self, role_name: str) -> iam.IRole:
         """指定されたIAM Role名からRoleの参照を取得"""
