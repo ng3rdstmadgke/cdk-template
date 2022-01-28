@@ -16,6 +16,7 @@ class ContextBase(BaseModel):
     http_proxy: str
     https_proxy: str
     no_proxy: List[str]
+    cidr_internal_network: str
     termination_protection: bool
     tags: Dict[str, str]
 
