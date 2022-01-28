@@ -16,7 +16,7 @@ WORKDIR /opt/work
 COPY ./setup.py .
 COPY ./cdk_version .
 COPY ./requirements.txt .
-RUN npm install -g aws-cdk@`cat cdk_version`
+RUN npm update -g npm && npm install -g aws-cdk@`cat cdk_version`
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
