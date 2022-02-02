@@ -77,7 +77,7 @@ class StackBase(core.Stack):
         if role_name not in self.role_refs:
             self.role_refs[role_name] = iam.Role.from_role_arn(
                 self, self._get_resource_id(f"{role_name}Ref"),
-                role_arn=f"arn:aws:iam::{self.context.aws_account_id}:user/{role_name}",
+                role_arn=f"arn:aws:iam::{self.context.aws_account_id}:role/{role_name}",
             )
         return self.role_refs[role_name]
 
