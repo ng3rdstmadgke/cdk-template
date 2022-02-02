@@ -76,12 +76,14 @@ class ContextLoaderBase(metaclass=ABCMeta):
         for k, v in overwrite_context.items():
             if k in context:
                 if type(v) == dict:
-                    ContextLoaderBase._overwrite_context(
+                    ContextLoaderBase._overwrite_context_inner(
                         context[k],
                         overwrite_context[k]
                     )
                 else:
-                    context[k] = v
+                    context[k] = copy.deepcopy(v)
+            else:
+                context[k] = copy.deepcopy(v)
     
     def get_context(self, model: Type["BaseModel"]) -> Any:
         return model.parse_obj(self.context_src)
