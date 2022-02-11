@@ -24,6 +24,7 @@ def test_stack_base():
     app = core.App()
     context = TestContext(
         aws_account_id="xxxxxxxxxxxx",
+        cidr_internal_network="10.0.0.0/8",
         aws_region="ap-northeast-1",
         app_name="mido",
         vpc_id="vpc-xxxxxxxxxxxxxxxxx",
@@ -42,6 +43,7 @@ def test_stack_base_get_vpc():
     app = core.App()
     context = TestContext(
         aws_account_id="xxxxxxxxxxxx",
+        cidr_internal_network="10.0.0.0/8",
         aws_region="ap-northeast-1",
         app_name="mido",
         vpc_id="vpc-xxxxxxxxxxxxxxxxx",
@@ -62,6 +64,7 @@ def test_stack_base_get_subnet():
     app = core.App()
     context = TestContext(
         aws_account_id="xxxxxxxxxxxx",
+        cidr_internal_network="10.0.0.0/8",
         aws_region="ap-northeast-1",
         app_name="mido",
         vpc_id="vpc-xxxxxxxxxxxxxxxxx",
@@ -82,6 +85,7 @@ def test_stack_base_get_role():
     app = core.App()
     context = TestContext(
         aws_account_id="xxxxxxxxxxxx",
+        cidr_internal_network="10.0.0.0/8",
         aws_region="ap-northeast-1",
         app_name="mido",
         vpc_id="vpc-xxxxxxxxxxxxxxxxx",

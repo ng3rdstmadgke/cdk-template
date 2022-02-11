@@ -43,6 +43,7 @@ def test_load_stage_context():
         "test_02": "0",
         "test_03": "0",
         "test_04": "0",
+        "test_10": "1",
         "stage": "dev"
     }
 
@@ -77,8 +78,11 @@ def test_load_line_context():
         "test_02": "1",
         "test_03": "0",
         "test_04": "0",
+        "test_20": "1",
         "stage": "dev",
-        "line": "line1"
+        "line": "line1",
+        "line1": {"test_02": "1", "test_20": "1"},
+        "line2": {"test_03": "1", "test_20": "1"}
     }
 
     result = LineContextLoader(
@@ -92,21 +96,22 @@ def test_load_line_context():
 
 def test_create_stage_context():
     default_context = {
-      "aws_account_id": "xxxxxxxxxxxxxx",
-      "aws_region": "ap-northeast-1",
-      "app_name": "mido",
-      "vpc_id": "vpc-xxxxxxxxxxxxxxxxx",
-      "subnet_ids": [ ],
-      "http_proxy": "",
-      "https_proxy": "",
-      "no_proxy": [],
-      "termination_protection": False,
-      "tags": {
-        "Billing Destination": "SAMPLE",
-        "SYS_STACK_APP": "SAMPLE"
-      },
-      "sns_email_address": "sample@example.com",
-      "test_stage": "test",
+        "aws_account_id": "xxxxxxxxxxxxxx",
+        "cidr_internal_network": "10.0.0.0/8",
+        "aws_region": "ap-northeast-1",
+        "app_name": "mido",
+        "vpc_id": "vpc-xxxxxxxxxxxxxxxxx",
+        "subnet_ids": [ ],
+        "http_proxy": "",
+        "https_proxy": "",
+        "no_proxy": [],
+        "termination_protection": False,
+        "tags": {
+            "Billing Destination": "SAMPLE",
+            "SYS_STACK_APP": "SAMPLE"
+        },
+        "sns_email_address": "sample@example.com",
+        "test_stage": "test",
     }
 
     stage = "dev"
@@ -133,6 +138,7 @@ def test_create_stage_context():
 def test_create_stage_overwrite_context():
     default_context = {
         "aws_account_id": "xxxxxxxxxxxxxx",
+        "cidr_internal_network": "10.0.0.0/8",
         "aws_region": "ap-northeast-1",
         "app_name": "mido",
         "vpc_id": "vpc-xxxxxxxxxxxxxxxxx",
@@ -142,8 +148,8 @@ def test_create_stage_overwrite_context():
         "no_proxy": [],
         "termination_protection": False,
         "tags": {
-          "Billing Destination": "SAMPLE",
-          "SYS_STACK_APP": "SAMPLE"
+            "Billing Destination": "SAMPLE",
+            "SYS_STACK_APP": "SAMPLE"
         },
         "sns_email_address": "sample@example.com",
         "test_stage": "test",
@@ -181,21 +187,22 @@ def test_create_stage_overwrite_context():
 
 def test_create_line_context():
     default_context = {
-      "aws_account_id": "xxxxxxxxxxxxxx",
-      "aws_region": "ap-northeast-1",
-      "app_name": "mido",
-      "vpc_id": "vpc-xxxxxxxxxxxxxxxxx",
-      "subnet_ids": [ ],
-      "http_proxy": "",
-      "https_proxy": "",
-      "no_proxy": [],
-      "termination_protection": False,
-      "tags": {
-        "Billing Destination": "SAMPLE",
-        "SYS_STACK_APP": "SAMPLE"
-      },
-      "sns_email_address": "sample@example.com",
-      "test_line": "test",
+        "aws_account_id": "xxxxxxxxxxxxxx",
+        "cidr_internal_network": "10.0.0.0/8",
+        "aws_region": "ap-northeast-1",
+        "app_name": "mido",
+        "vpc_id": "vpc-xxxxxxxxxxxxxxxxx",
+        "subnet_ids": [ ],
+        "http_proxy": "",
+        "https_proxy": "",
+        "no_proxy": [],
+        "termination_protection": False,
+        "tags": {
+            "Billing Destination": "SAMPLE",
+            "SYS_STACK_APP": "SAMPLE"
+        },
+        "sns_email_address": "sample@example.com",
+        "test_line": "test",
     }
 
     stage = "dev"
