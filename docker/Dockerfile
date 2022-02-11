@@ -1,8 +1,11 @@
 FROM python:3.8.12-slim-bullseye
 
-#ENV http_proxy http://xxx.com:7080
-#ENV https_proxy http://xxx.com:7080
-#ENV NO_PROXY 169.254.169.254
+ARG proxy
+ARG no_proxy
+
+ENV http_proxy=$proxy
+ENV https_proxy=$proxy
+ENV NO_PROXY=$no_proxy
 
 RUN apt update && apt install -y curl jq
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -

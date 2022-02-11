@@ -1,12 +1,12 @@
 #!/bin/bash -eu
-SCRIPT_DIR=$(cd $(dirname $0); pwd)
-cd ${SCRIPT_DIR}
+PROJECT_ROOT=$(cd $(dirname $0); pwd)
+cd ${PROJECT_ROOT}
 
-APP_NAME=sample-cdk
+IMAGE_NAME=$(cat ${PROJECT_ROOT}/cdk_image_name)
 
 docker run \
   --rm \
   -it \
   -v ${PWD}:/opt/cdk \
   -v ${HOME}/.aws:/root/.aws:ro \
-  ${APP_NAME} cdk $*
+  ${IMAGE_NAME} cdk $*
