@@ -12,6 +12,8 @@ from cdk_template.context.sample_line_context import SampleLineContext
 from cdk_template.stack.sample_line_stack import SampleLineStack
 from cdk_template.context.ecr_context import EcrContext
 from cdk_template.stack.ecr_stack import EcrStack
+from cdk_template.context.network_context import NetworkContext
+from cdk_template.stack.network_stack import NetworkStack
 
 
 KEY_CONTEXT_DEFAULT = "default"
@@ -38,6 +40,13 @@ if stage:
         stage=stage
     ).get_context(EcrContext)
     EcrStack(app, ecr_context)
+
+    network_context = StageContextLoader(
+        default_context=default_context,
+        overwrite_context=overwrite_context,
+        stage=stage
+    ).get_context(NetworkContext)
+    NetworkStack(app, network_context)
 
 
     line = app.node.try_get_context(ARG_KEY_CONTEXT_LINE)

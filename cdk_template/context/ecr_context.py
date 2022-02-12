@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from typing import List, Optional
 from cdk_template.context.context_loader_base import StageContextBase
 
