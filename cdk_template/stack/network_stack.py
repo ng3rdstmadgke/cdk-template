@@ -1,12 +1,27 @@
+from typing import Dict, List, Optional
+from pydantic import BaseModel
 from aws_cdk import (
     core,
     aws_ec2 as ec2
 )
+from cdk_template.lib.common import CommonContext, CommonStack
 
-from cdk_template.context.network_context import NetworkContext
-from cdk_template.stack.stack_base import StageStackBase
+class NetworkPublicSubnets(BaseModel):
+    cidr: str
+    az: str
 
-class NetworkStack(StageStackBase):
+class NetworkPrivateSubnets(BaseModel):
+    cidr: str
+    az: str
+    ngw_idx: int
+
+class NetworkContext(CommonContext):
+    network_vpc_cidr: str
+    network_public_subnets: List[NetworkPublicSubnets]
+    network_private_subnets: List[NetworkPrivateSubnets]
+
+
+class NetworkStack(CommonStack):
     STACK_NAME = "network"
     context: NetworkContext
 
