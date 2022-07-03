@@ -6,16 +6,10 @@ from cdk_template.stack.ecr_stack import EcrStack, EcrContext
 from cdk_template.stack.network_stack import NetworkStack, NetworkContext
 from cdk_template.lib.base import ContextLoader
 
-
-KEY_CONTEXT_DEFAULT = "default"
-KEY_CONTEXT_OVERWRITE = "overwrite"
-ARG_KEY_CONTEXT_STAGE = "stage"
-
 app = core.App()
-default_context = app.node.try_get_context(KEY_CONTEXT_DEFAULT)
-overwrite_context = app.node.try_get_context(KEY_CONTEXT_OVERWRITE)
-
-stage = app.node.try_get_context(ARG_KEY_CONTEXT_STAGE)
+default_context = app.node.try_get_context("default")
+overwrite_context = app.node.try_get_context("overwrite")
+stage = app.node.try_get_context("stage")
 
 if not stage:
     raise Exception("-c stage=<STAGE> が指定されていません")
