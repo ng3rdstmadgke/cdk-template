@@ -86,8 +86,8 @@ class StackBase(core.Stack):
             scope,
             self._get_resource_name(self.STACK_NAME),
             env=core.Environment( # スタックがデプロイされるaccountとregionを指定する
-                account=self.context.aws_account_id,
-                region=self.context.aws_region
+                account=self.context.aws_account_id if (self.context.aws_account_id) else None,
+                region=self.context.aws_region if (self.context.aws_region) else None,
             ),
             termination_protection=self.context.termination_protection,
         )
