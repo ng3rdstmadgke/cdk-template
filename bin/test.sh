@@ -3,4 +3,12 @@
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 PROJECT_ROOT=$(cd $(dirname $0)/..; pwd)
 cd $PROJECT_ROOT
-pytest tests
+
+IMAGE_NAME=$(cat ${PROJECT_ROOT}/cdk_image_name)
+
+docker run \
+  --rm \
+  -it \
+  -v ${PWD}:/opt/cdk \
+  -v ${HOME}/.aws:/root/.aws:ro \
+  ${IMAGE_NAME} pytest tests

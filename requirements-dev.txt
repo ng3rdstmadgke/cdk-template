@@ -1,4 +1,0 @@
-pytest==6.2.5
-pylint
-black
--e .
