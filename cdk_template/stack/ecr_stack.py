@@ -1,11 +1,26 @@
 import json
+from typing import List, Optional
+
 from aws_cdk import (
     aws_ecr as ecr
 )
-from cdk_template.context.ecr_context import EcrContext
-from cdk_template.stack.stack_base import StageStackBase
+from cdk_template.lib.common import CommonContext, CommonStack
 
-class EcrStack(StageStackBase):
+class EcrContext(CommonContext):
+    ecr_repositories: List[str]
+    ecr_allow_vpce_api: Optional[str]
+    ecr_allow_vpce_dkr: Optional[str]
+    ecr_allow_ip_list: List[str]
+
+    def get_allow_vpce_list(self) -> List[str]:
+        allow_vpce_list = []
+        if self.ecr_allow_vpce_api:
+            allow_vpce_list.append(self.ecr_allow_vpce_api)
+        if self.ecr_allow_vpce_dkr:
+            allow_vpce_list.append(self.ecr_allow_vpce_dkr)
+        return allow_vpce_list
+
+class EcrStack(CommonStack):
     STACK_NAME = "ecr"
     context: EcrContext
 
